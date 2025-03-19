@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Bot, Download, MessageSquare, Sparkles } from 'lucide-react';
@@ -74,7 +73,7 @@ const Home = () => {
                 variant="outline" 
                 size="lg" 
                 className="w-full sm:w-auto"
-                onClick={handleDownload}
+                onClick={handleDownloadClick}
               >
                 <Download className="mr-2 h-4 w-4" />
                 Download Study Document
