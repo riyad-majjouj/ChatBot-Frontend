@@ -1,26 +1,20 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Bot, Download, MessageSquare, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import DownloadAlert from '@/components/DownloadAlert';
+import { toast } from '@/hooks/use-toast';
 
 const Home = () => {
-  const handleDownload = () => {
-    // Define the URL to the PDF file
-    const pdfUrl = "https://www.alloschool.com/assets/documents/course-399/examen-national-svt-sciences-physiques-2023-normale-corrige.pdf";
-    
-    // Create a temporary anchor element
-    const link = document.createElement('a');
-    link.href = pdfUrl;
-    link.setAttribute('download', 'examen-national-svt-sciences-physiques-2023.pdf');
-    link.setAttribute('target', '_blank');
-    
-    // Append to the document and trigger the download
-    document.body.appendChild(link);
-    link.click();
-    
-    // Clean up
-    document.body.removeChild(link);
+  const [showDownloadAlert, setShowDownloadAlert] = useState(false);
+  
+  const handleDownloadClick = () => {
+    setShowDownloadAlert(true);
+    toast({
+      title: "Document Ready",
+      description: "You can download the exam document from the alert below.",
+    });
   };
 
   return (
@@ -41,7 +35,7 @@ const Home = () => {
             </div>
             <div className="flex items-center space-x-2">
               <Button 
-                onClick={handleDownload} 
+                onClick={handleDownloadClick} 
                 variant="outline" 
                 size="sm" 
                 className="flex items-center gap-1"
@@ -124,12 +118,22 @@ const Home = () => {
           <div className="glass-panel rounded-2xl p-8 text-center">
             <h2 className="text-2xl font-bold mb-4">Ready to chat with Aurora AI?</h2>
             <p className="text-muted-foreground mb-6">Start a conversation and experience the power of AI assistance.</p>
-            <Link to="/chat">
-              <Button size="lg" className="group">
-                Get Started
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link to="/chat">
+                <Button size="lg" className="group">
+                  Get Started
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                onClick={handleDownloadClick}
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download Study Document
               </Button>
-            </Link>
+            </div>
           </div>
         </div>
       </main>
@@ -138,6 +142,15 @@ const Home = () => {
       <footer className="py-6 text-center text-xs text-muted-foreground">
         <p>Aurora AI Assistant • &copy; {new Date().getFullYear()} • Intelligent AI Technology</p>
       </footer>
+
+      {/* Download Alert */}
+      {showDownloadAlert && (
+        <DownloadAlert 
+          documentUrl="https://www.alloschool.com/assets/documents/course-399/examen-national-svt-sciences-physiques-2023-normale-corrige.pdf"
+          documentName="examen-national-svt-sciences-physiques-2023.pdf"
+          onClose={() => setShowDownloadAlert(false)}
+        />
+      )}
     </div>
   );
 };
