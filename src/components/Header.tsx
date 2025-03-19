@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { Settings, Menu, Moon, Info } from 'lucide-react';
+import { Settings, Menu, Moon, Info, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   title?: string;
@@ -27,6 +28,9 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div className="flex items-center space-x-1">
+        <Link to="/" className="p-2 text-muted-foreground hover:text-accent rounded-full transition-colors">
+          <Home className="h-4 w-4" />
+        </Link>
         <button className="p-2 text-muted-foreground hover:text-accent rounded-full transition-colors">
           <Info className="h-4 w-4" />
         </button>
