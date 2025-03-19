@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { sendMessageToGemini } from '@/services/geminiService';
 
 export type MessageType = {
   id: string;
@@ -38,32 +39,13 @@ export const useChat = () => {
     // Add user message
     addMessage(content, 'user');
     
-    // Simulate AI thinking
+    // Set loading state while waiting for AI response
     setIsLoading(true);
     setError(null);
     
     try {
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      
-      // Generate a response based on user input
-      let response = '';
-      
-      if (content.toLowerCase().includes('hello') || content.toLowerCase().includes('hi')) {
-        response = "Hello! It's nice to chat with you. How are you doing today?";
-      } else if (content.toLowerCase().includes('how are you')) {
-        response = "I'm functioning perfectly, thank you for asking! How can I assist you?";
-      } else if (content.toLowerCase().includes('name')) {
-        response = "I'm an AI assistant. You can call me Aurora if you'd like. What's on your mind?";
-      } else if (content.toLowerCase().includes('thank')) {
-        response = "You're welcome! I'm always here to help. Is there anything else you'd like to know?";
-      } else if (content.toLowerCase().includes('help')) {
-        response = "I'd be happy to help! I can answer questions, provide information, or just chat. What do you need assistance with?";
-      } else if (content.toLowerCase().includes('bye') || content.toLowerCase().includes('goodbye')) {
-        response = "Goodbye! Feel free to come back anytime you have questions or just want to chat.";
-      } else {
-        response = "That's an interesting point. I'm designed to have conversations like this. Is there something specific you'd like to explore further?";
-      }
+      // Get response from Gemini API
+      const response = await sendMessageToGemini(content);
       
       // Add AI response
       addMessage(response, 'ai');
