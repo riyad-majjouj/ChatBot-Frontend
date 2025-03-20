@@ -35,9 +35,14 @@ export const sendMessageToGemini = async (message: string): Promise<string> => {
     }
 
     const data = await response.json();
+    console.log('Gemini API response:', JSON.stringify(data, null, 2));
     
     // Extract the response text from the Gemini API response
-    if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts) {
+    if (data.candidates && 
+        data.candidates.length > 0 && 
+        data.candidates[0].content && 
+        data.candidates[0].content.parts && 
+        data.candidates[0].content.parts.length > 0) {
       return data.candidates[0].content.parts[0].text;
     } else {
       console.error('Unexpected response structure:', data);

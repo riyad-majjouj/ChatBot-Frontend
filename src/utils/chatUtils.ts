@@ -50,8 +50,11 @@ export const useChat = () => {
       // Add AI response
       addMessage(response, 'ai');
     } catch (err) {
+      console.error('Error in chat flow:', err);
       setError('Sorry, I encountered an error. Please try again.');
-      console.error(err);
+      
+      // Add error message as AI response
+      addMessage('Sorry, I encountered an error processing your request. Please try again.', 'ai');
     } finally {
       setIsLoading(false);
     }
