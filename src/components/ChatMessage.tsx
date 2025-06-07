@@ -1,4 +1,6 @@
 
+
+// ChatMessage.tsx
 import React, { useEffect, useRef } from 'react';
 import { MessageType, formatTime } from '../utils/chatUtils';
 import { cn } from '@/lib/utils';
@@ -12,7 +14,7 @@ interface ChatMessageProps {
 const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLast }) => {
   const messageRef = useRef<HTMLDivElement>(null);
 
-  // Scroll into view when new message appears
+  // Automatic scrolling to the latest message when it appears
   useEffect(() => {
     if (isLast && messageRef.current) {
       messageRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -30,6 +32,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLast }) => {
         "animate-fade-in"
       )}
     >
+      {/* Display AI icon if the message is not from user */}
       {!isUser && (
         <div className="flex-shrink-0 mr-3">
           <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -44,7 +47,9 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLast }) => {
           isUser ? "chat-bubble-user" : "chat-bubble-ai"
         )}
       >
-        <div className="text-sm sm:text-base">{message.content}</div>
+        <div className="text-sm sm:text-base">
+          {message.content}
+        </div>
         <div className={cn(
           "text-xs mt-1",
           isUser ? "text-right text-white/70" : "text-left text-foreground/50"
@@ -53,6 +58,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLast }) => {
         </div>
       </div>
       
+      {/* Display user icon if the message is from user */}
       {isUser && (
         <div className="flex-shrink-0 ml-3">
           <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center">

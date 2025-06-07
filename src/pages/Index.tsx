@@ -1,4 +1,4 @@
-
+// Index.tsx
 import React, { useRef, useEffect, useState } from 'react';
 import ChatMessage from '@/components/ChatMessage';
 import ChatInput from '@/components/ChatInput';
@@ -13,7 +13,7 @@ const Index = () => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const { toast } = useToast();
 
-  // Show any errors as toasts
+  // Display errors using Toasts
   useEffect(() => {
     if (error) {
       toast({
@@ -24,24 +24,40 @@ const Index = () => {
     }
   }, [error, toast]);
 
-  // Intro animation
+  // Initial load effect
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsInitialLoad(false);
     }, 500);
-    
     return () => clearTimeout(timer);
   }, []);
+
+  // Scroll to the last message when messages change
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 transition-opacity duration-500 ${isInitialLoad ? 'opacity-0' : 'opacity-100'}`}>
       <div className="w-full max-w-4xl flex flex-col h-[90vh]">
         <Header />
-        
+
         <div className="flex-grow overflow-hidden glass-panel rounded-2xl p-4 mb-4 flex flex-col">
-          <div 
+          <div
             ref={chatContainerRef}
-            className="flex-grow overflow-y-auto scrollbar-none pr-2 space-y-2"
+            className="flex-grow overflow-y-auto scrollbar-2 [&::-webkit-scrollbar]:w-2
+                          [&::-webkit-scrollbar-thumb]:rounded-full
+                          [&::-webkit-scrollbar-thumb]:transition-colors
+                          [&::-webkit-scrollbar-thumb]:hover:bg-gray-500
+                          [&::-webkit-scrollbar]:bg-transparent
+                          [&::-webkit-scrollbar-track]:rounded-full
+                          [&::-webkit-scrollbar-track]:bg-transparent
+                         [&::-webkit-scrollbar-track]:bg-gray-700 
+                         [&::-webkit-scrollbar-thumb]:bg-gray-600
+                         dark:[&::-webkit-scrollbar-track]:bg-neutral-200
+                           dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 pr-2 space-y-2"
           >
             {messages.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-8">
@@ -55,10 +71,10 @@ const Index = () => {
               </div>
             ) : (
               messages.map((message, index) => (
-                <ChatMessage 
-                  key={message.id} 
-                  message={message} 
-                  isLast={index === messages.length - 1} 
+                <ChatMessage
+                  key={message.id}
+                  message={message}
+                  isLast={index === messages.length - 1}
                 />
               ))
             )}
@@ -74,13 +90,14 @@ const Index = () => {
             )}
           </div>
         </div>
-        
-        <ChatInput 
-          onSendMessage={sendMessage} 
-          isLoading={isLoading} 
+
+        {/* ChatInput will send messages through sendMessage and update the messages array automatically */}
+        <ChatInput
+          onSendMessage={sendMessage}
+          isLoading={isLoading}
           placeholder="Message Aurora AI..."
         />
-        
+
         <div className="text-xs text-center text-muted-foreground mt-2">
           Aurora AI Assistant • Providing intelligent responses
         </div>

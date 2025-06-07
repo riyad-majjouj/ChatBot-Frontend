@@ -31,15 +31,8 @@ const Header: React.FC<HeaderProps> = ({
         <Link to="/" className="p-2 text-muted-foreground hover:text-accent rounded-full transition-colors">
           <Home className="h-4 w-4" />
         </Link>
-        <button className="p-2 text-muted-foreground hover:text-accent rounded-full transition-colors">
-          <Info className="h-4 w-4" />
-        </button>
-        <button className="p-2 text-muted-foreground hover:text-accent rounded-full transition-colors">
-          <Moon className="h-4 w-4" />
-        </button>
-        <button className="p-2 text-muted-foreground hover:text-accent rounded-full transition-colors">
-          <Settings className="h-4 w-4" />
-        </button>
+      
+        
       </div>
     </header>
   );

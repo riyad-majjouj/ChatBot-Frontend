@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Bot, Download, MessageSquare, Sparkles } from 'lucide-react';
@@ -34,15 +33,6 @@ const Home = () => {
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <Button 
-                onClick={handleDownloadClick} 
-                variant="outline" 
-                size="sm" 
-                className="flex items-center gap-1"
-              >
-                <Download className="h-4 w-4" />
-                <span className="hidden sm:inline">Download Document</span>
-              </Button>
               <Link to="/chat">
                 <Button size="sm" className="flex items-center gap-1">
                   <MessageSquare className="h-4 w-4" />
@@ -70,15 +60,7 @@ const Home = () => {
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="w-full sm:w-auto"
-                onClick={handleDownloadClick}
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Download Study Document
-              </Button>
+             
             </div>
           </div>
 
@@ -125,14 +107,7 @@ const Home = () => {
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                onClick={handleDownloadClick}
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Download Study Document
-              </Button>
+             
             </div>
           </div>
         </div>
@@ -146,8 +121,8 @@ const Home = () => {
       {/* Download Alert */}
       {showDownloadAlert && (
         <DownloadAlert 
-          documentUrl="https://www.alloschool.com/assets/documents/course-399/examen-national-svt-sciences-physiques-2023-normale-corrige.pdf"
-          documentName="examen-national-svt-sciences-physiques-2023.pdf"
+          documentUrl="././public/og-image.png"
+          documentName="apk"
           onClose={() => setShowDownloadAlert(false)}
         />
       )}
