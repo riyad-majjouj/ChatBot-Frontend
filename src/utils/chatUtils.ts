@@ -41,7 +41,7 @@ export const useChat = () => {
     setError(null);
 
     try {
-      const res = await fetch("https://chatbot-backend-nine-zeta.vercel.app/ask", {
+      const res = await fetch("https://chatbot-backend-nine-zeta.vercel.app/api/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: content }),
